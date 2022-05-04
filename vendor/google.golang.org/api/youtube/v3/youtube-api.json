@@ -3398,7 +3398,7 @@
               "video/*",
               "application/octet-stream"
             ],
-            "maxSize": "274877906944",
+            "maxSize": "137438953472",
             "protocols": {
               "resumable": {
                 "multipart": true,
@@ -3789,7 +3789,7 @@
       }
     }
   },
-  "revision": "20220419",
+  "revision": "20210915",
   "rootUrl": "https://youtube.googleapis.com/",
   "schemas": {
     "AbuseReport": {
@@ -4481,11 +4481,9 @@
             "rtmp",
             "dash",
             "webrtc",
-            "hls",
-            "srt"
+            "hls"
           ],
           "enumDescriptions": [
-            "",
             "",
             "",
             "",
@@ -5214,11 +5212,6 @@
       "description": "Information specific to a store on a merchandising platform linked to a YouTube channel.",
       "id": "ChannelToStoreLinkDetails",
       "properties": {
-        "merchantId": {
-          "description": "Google Merchant Center id of the store.",
-          "format": "uint64",
-          "type": "string"
-        },
         "storeName": {
           "description": "Name of the store.",
           "type": "string"
@@ -5742,9 +5735,6 @@
             "cbfcUnspecified",
             "cbfcU",
             "cbfcUA",
-            "cbfcUA7plus",
-            "cbfcUA13plus",
-            "cbfcUA16plus",
             "cbfcA",
             "cbfcS",
             "cbfcUnrated"
@@ -5753,9 +5743,6 @@
             "",
             "U",
             "U/A",
-            "U/A 7+",
-            "U/A 13+",
-            "U/A 16+",
             "A",
             "S",
             ""
@@ -6734,16 +6721,12 @@
             "mibacUnspecified",
             "mibacT",
             "mibacVap",
-            "mibacVm6",
             "mibacVm12",
             "mibacVm14",
-            "mibacVm16",
             "mibacVm18",
             "mibacUnrated"
           ],
           "enumDescriptions": [
-            "",
-            "",
             "",
             "",
             "",
@@ -7551,7 +7534,7 @@
       "type": "object"
     },
     "IngestionInfo": {
-      "description": "Describes information necessary for ingesting an RTMP, HTTP, or SRT stream.",
+      "description": "Describes information necessary for ingesting an RTMP or an HTTP stream.",
       "id": "IngestionInfo",
       "properties": {
         "backupIngestionAddress": {
@@ -7571,7 +7554,7 @@
           "type": "string"
         },
         "streamName": {
-          "description": "The stream name that YouTube assigns to the video stream.",
+          "description": "The HTTP or RTMP stream name that YouTube assigns to the video stream.",
           "type": "string"
         }
       },
@@ -8173,24 +8156,6 @@
       },
       "type": "object"
     },
-    "LiveChatGiftMembershipReceivedDetails": {
-      "id": "LiveChatGiftMembershipReceivedDetails",
-      "properties": {
-        "associatedMembershipGiftingMessageId": {
-          "description": "The ID of the membership gifting message that is related to this gift membership. This ID will always refer to a message whose type is 'membershipGiftingEvent'.",
-          "type": "string"
-        },
-        "gifterChannelId": {
-          "description": "The ID of the user that made the membership gifting purchase. This matches the `snippet.authorChannelId` of the associated membership gifting message.",
-          "type": "string"
-        },
-        "memberLevelName": {
-          "description": "The name of the Level at which the viewer is a member. This matches the `snippet.membershipGiftingDetails.giftMembershipsLevelName` of the associated membership gifting message. The Level names are defined by the YouTube channel offering the Membership. In some situations this field isn't filled.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "LiveChatMemberMilestoneChatDetails": {
       "id": "LiveChatMemberMilestoneChatDetails",
       "properties": {
@@ -8205,21 +8170,6 @@
         },
         "userComment": {
           "description": "The comment added by the member to this Member Milestone Chat. This field is empty for messages without a comment from the member.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "LiveChatMembershipGiftingDetails": {
-      "id": "LiveChatMembershipGiftingDetails",
-      "properties": {
-        "giftMembershipsCount": {
-          "description": "The number of gift memberships purchased by the user.",
-          "format": "int32",
-          "type": "integer"
-        },
-        "giftMembershipsLevelName": {
-          "description": "The name of the level of the gift memberships purchased by the user. The Level names are defined by the YouTube channel offering the Membership. In some situations this field isn't filled.",
           "type": "string"
         }
       },
@@ -8359,11 +8309,11 @@
       "type": "object"
     },
     "LiveChatMessageSnippet": {
-      "description": "Next ID: 33",
+      "description": "Next ID: 31",
       "id": "LiveChatMessageSnippet",
       "properties": {
         "authorChannelId": {
-          "description": "The ID of the user that authored this message, this field is not always filled. textMessageEvent - the user that wrote the message fanFundingEvent - the user that funded the broadcast newSponsorEvent - the user that just became a sponsor memberMilestoneChatEvent - the member that sent the message membershipGiftingEvent - the user that made the purchase giftMembershipReceivedEvent - the user that received the gift membership messageDeletedEvent - the moderator that took the action messageRetractedEvent - the author that retracted their message userBannedEvent - the moderator that took the action superChatEvent - the user that made the purchase superStickerEvent - the user that made the purchase",
+          "description": "The ID of the user that authored this message, this field is not always filled. textMessageEvent - the user that wrote the message fanFundingEvent - the user that funded the broadcast newSponsorEvent - the user that just became a sponsor memberMilestoneChatEvent - the member that sent the message messageDeletedEvent - the moderator that took the action messageRetractedEvent - the author that retracted their message userBannedEvent - the moderator that took the action superChatEvent - the user that made the purchase superStickerEvent - the user that made the purchase",
           "type": "string"
         },
         "displayMessage": {
@@ -8373,10 +8323,6 @@
         "fanFundingEventDetails": {
           "$ref": "LiveChatFanFundingEventDetails",
           "description": "Details about the funding event, this is only set if the type is 'fanFundingEvent'."
-        },
-        "giftMembershipReceivedDetails": {
-          "$ref": "LiveChatGiftMembershipReceivedDetails",
-          "description": "Details about the Gift Membership Received event, this is only set if the type is 'giftMembershipReceivedEvent'."
         },
         "hasDisplayContent": {
           "description": "Whether the message has display content that should be displayed to users.",
@@ -8388,10 +8334,6 @@
         "memberMilestoneChatDetails": {
           "$ref": "LiveChatMemberMilestoneChatDetails",
           "description": "Details about the Member Milestone Chat event, this is only set if the type is 'memberMilestoneChatEvent'."
-        },
-        "membershipGiftingDetails": {
-          "$ref": "LiveChatMembershipGiftingDetails",
-          "description": "Details about the Membership Gifting event, this is only set if the type is 'membershipGiftingEvent'."
         },
         "messageDeletedDetails": {
           "$ref": "LiveChatMessageDeletedDetails"
@@ -8432,8 +8374,6 @@
             "sponsorOnlyModeEndedEvent",
             "newSponsorEvent",
             "memberMilestoneChatEvent",
-            "membershipGiftingEvent",
-            "giftMembershipReceivedEvent",
             "messageDeletedEvent",
             "messageRetractedEvent",
             "userBannedEvent",
@@ -8441,8 +8381,6 @@
             "superStickerEvent"
           ],
           "enumDescriptions": [
-            "",
-            "",
             "",
             "",
             "",
