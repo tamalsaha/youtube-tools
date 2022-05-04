@@ -1,6 +1,9 @@
 # cloud.google.com/go/compute v1.6.1
 ## explicit; go 1.15
 cloud.google.com/go/compute/metadata
+# github.com/gocarina/gocsv v0.0.0-20211020200912-82fc2684cc48
+## explicit; go 1.13
+github.com/gocarina/gocsv
 # github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e
 ## explicit
 github.com/golang/groupcache/lru
@@ -64,8 +67,12 @@ golang.org/x/text/secure/bidirule
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+# gomodules.xyz/gdrive-utils v0.0.3-0.20220504063807-72b04fb0d064
+## explicit; go 1.17
+gomodules.xyz/gdrive-utils
 # google.golang.org/api v0.78.0
 ## explicit; go 1.15
+google.golang.org/api/calendar/v3
 google.golang.org/api/googleapi
 google.golang.org/api/googleapi/transport
 google.golang.org/api/internal
@@ -74,6 +81,7 @@ google.golang.org/api/internal/impersonate
 google.golang.org/api/internal/third_party/uritemplates
 google.golang.org/api/option
 google.golang.org/api/option/internaloption
+google.golang.org/api/sheets/v4
 google.golang.org/api/transport/cert
 google.golang.org/api/transport/http
 google.golang.org/api/transport/http/internal/propagation
