@@ -25,7 +25,7 @@ func handleError(err error, message string) {
 
 func channelsListByUsername(service *youtube.Service, parts []string, forUsername string) {
 	call := service.Channels.List(parts)
-	call = call.ForUsername(forUsername)
+	call = call.Id(forUsername)
 	response, err := call.Do()
 	handleError(err, "")
 
@@ -44,5 +44,5 @@ func main() {
 	service, err := youtube.NewService(ctx, option.WithHTTPClient(client))
 	handleError(err, "Error creating YouTube client")
 
-	channelsListByUsername(service, strings.Split("snippet,contentDetails,statistics", ","), "GoogleDevelopers")
+	channelsListByUsername(service, strings.Split("snippet,contentDetails,statistics", ","), "UCxObRDZ0DtaQe_cCP-dN-xg")
 }
