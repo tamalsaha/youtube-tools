@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4
-	gomodules.xyz/gdrive-utils v0.0.3-0.20220504063807-72b04fb0d064
+	gomodules.xyz/gdrive-utils v0.0.3
 	google.golang.org/api v0.78.0
 )
 
