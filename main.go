@@ -95,6 +95,7 @@ func ListPlaylists(service *youtube.Service, channelID string) {
 	//fmt.Println(string(data))
 }
 
+// https://developers.google.com/youtube/v3/docs/playlistItems/list
 func ListPlaylistItems(service *youtube.Service, playlistID string) {
 	call := service.PlaylistItems.List(strings.Split("snippet,contentDetails,status", ","))
 	call = call.Fields("items(snippet(title,description,position,thumbnails(high)),contentDetails,status)")
