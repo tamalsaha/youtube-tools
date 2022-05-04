@@ -65,7 +65,7 @@ func tokenCacheFile() (string, error) {
 		return "", err
 	}
 	tokenCacheDir := filepath.Join(usr.HomeDir, ".credentials")
-	os.MkdirAll(tokenCacheDir, 0700)
+	os.MkdirAll(tokenCacheDir, 0o700)
 	return filepath.Join(tokenCacheDir,
 		url.QueryEscape("youtube-go-quickstart.json")), err
 }
@@ -87,7 +87,7 @@ func tokenFromFile(file string) (*oauth2.Token, error) {
 // token in it.
 func saveToken(file string, token *oauth2.Token) {
 	fmt.Printf("Saving credential file to: %s\n", file)
-	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0600)
+	f, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o600)
 	if err != nil {
 		log.Fatalf("Unable to cache oauth token: %v", err)
 	}
