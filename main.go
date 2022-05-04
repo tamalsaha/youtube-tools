@@ -3,7 +3,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -67,56 +66,29 @@ func main() {
 // video
 
 // https://developers.google.com/youtube/v3/guides/implementation/playlists
-func ListPlaylists(service *youtube.Service, channelID string) {
+func ListPlaylists(service *youtube.Service, channelID string) ([]*youtube.Playlist, error) {
 	call := service.Playlists.List(strings.Split("snippet,contentDetails,status", ","))
 	// call = call.Fields("items(id,snippet(title,description,publishedAt,tags,thumbnails(high)),contentDetails,status)")
-	// call = call.Fields("items/id")
 	call = call.ChannelId(channelID)
-	//response, err := call.Do()
-	//handleError(err, "")
 
 	var out []*youtube.Playlist
-
 	err := call.Pages(context.TODO(), func(resp *youtube.PlaylistListResponse) error {
 		out = append(out, resp.Items...)
-
-		//for _, item := range resp.Items {
-		//	data, err := json.MarshalIndent(item, "", "  ")
-		//	handleError(err, "json error")
-		//	fmt.Println(string(data))
-		//}
 		return nil
 	})
-	handleError(err, "")
-	fmt.Println("# of playlists:", len(out))
-
-	//data, err := json.MarshalIndent(out, "", "  ")
-	//handleError(err, "json error")
-	//fmt.Println(string(data))
+	return out, err
 }
 
 // https://developers.google.com/youtube/v3/docs/playlistItems/list
-func ListPlaylistItems(service *youtube.Service, playlistID string) {
+func ListPlaylistItems(service *youtube.Service, playlistID string) ([]*youtube.PlaylistItem, error) {
 	call := service.PlaylistItems.List(strings.Split("snippet,contentDetails,status", ","))
 	call = call.Fields("items(snippet(title,description,position,thumbnails(high)),contentDetails,status)")
 	call = call.PlaylistId(playlistID)
-	//response, err := call.Do()
-	//handleError(err, "")
 
 	var out []*youtube.PlaylistItem
 	err := call.Pages(context.Background(), func(resp *youtube.PlaylistItemListResponse) error {
 		out = append(out, resp.Items...)
-
-		//for _, item := range resp.Items {
-		//	data, err := json.MarshalIndent(item, "", "  ")
-		//	handleError(err, "json error")
-		//	fmt.Println(string(data))
-		//}
 		return nil
 	})
-	handleError(err, "")
-
-	data, err := json.MarshalIndent(out, "", "  ")
-	handleError(err, "json error")
-	fmt.Println(string(data))
+	return out, err
 }
