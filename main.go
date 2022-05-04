@@ -67,11 +67,18 @@ func main() {
 
 // https://developers.google.com/youtube/v3/guides/implementation/playlists
 func ListPlaylists(service *youtube.Service, parts []string, channelID string) {
-	response, err := service.Playlists.List(parts).
-		ChannelId(channelID).
-		Do()
+	call := service.Playlists.List(parts)
+	call = call.ChannelId(channelID)
+	//response, err := call.Do()
+	//handleError(err, "")
+
+	err := call.Pages(context.TODO(), func(resp *youtube.PlaylistListResponse) error {
+		for _, item := range resp.Items {
+			data, err := json.MarshalIndent(item, "", "  ")
+			handleError(err, "json error")
+			fmt.Println(string(data))
+		}
+		return nil
+	})
 	handleError(err, "")
-	data, err := json.MarshalIndent(response, "", "  ")
-	handleError(err, "json error")
-	fmt.Println(string(data))
 }
