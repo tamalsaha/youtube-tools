@@ -55,9 +55,10 @@ func main() {
 	service, err := youtube.NewService(ctx, option.WithHTTPClient(client))
 	handleError(err, "Error creating YouTube client")
 
-	channelsListByUsername(service, strings.Split("snippet,contentDetails,statistics", ","), channelID)
+	// channelsListByUsername(service, strings.Split("snippet,contentDetails,statistics", ","), channelID)
 
-	ListPlaylists(service, strings.Split("snippet,contentDetails,status", ","), channelID)
+	ListPlaylists(service, channelID)
+	// ListPlaylistItems(service, "PLoiT1Gv2KR1gc4FN0f7w92RhAHTKbPotT")
 }
 
 // playlist
@@ -66,8 +67,10 @@ func main() {
 // video
 
 // https://developers.google.com/youtube/v3/guides/implementation/playlists
-func ListPlaylists(service *youtube.Service, parts []string, channelID string) {
-	call := service.Playlists.List(parts)
+func ListPlaylists(service *youtube.Service, channelID string) {
+	call := service.Playlists.List(strings.Split("snippet,contentDetails,status", ","))
+	// call = call.Fields("items(id,snippet(title,description,publishedAt,tags,thumbnails(high)),contentDetails,status)")
+	// call = call.Fields("items/id")
 	call = call.ChannelId(channelID)
 	//response, err := call.Do()
 	//handleError(err, "")
@@ -75,6 +78,32 @@ func ListPlaylists(service *youtube.Service, parts []string, channelID string) {
 	var out []*youtube.Playlist
 
 	err := call.Pages(context.TODO(), func(resp *youtube.PlaylistListResponse) error {
+		out = append(out, resp.Items...)
+
+		//for _, item := range resp.Items {
+		//	data, err := json.MarshalIndent(item, "", "  ")
+		//	handleError(err, "json error")
+		//	fmt.Println(string(data))
+		//}
+		return nil
+	})
+	handleError(err, "")
+	fmt.Println("# of playlists:", len(out))
+
+	//data, err := json.MarshalIndent(out, "", "  ")
+	//handleError(err, "json error")
+	//fmt.Println(string(data))
+}
+
+func ListPlaylistItems(service *youtube.Service, playlistID string) {
+	call := service.PlaylistItems.List(strings.Split("snippet,contentDetails,status", ","))
+	call = call.Fields("items(snippet(title,description,position,thumbnails(high)),contentDetails,status)")
+	call = call.PlaylistId(playlistID)
+	//response, err := call.Do()
+	//handleError(err, "")
+
+	var out []*youtube.PlaylistItem
+	err := call.Pages(context.Background(), func(resp *youtube.PlaylistItemListResponse) error {
 		out = append(out, resp.Items...)
 
 		//for _, item := range resp.Items {
