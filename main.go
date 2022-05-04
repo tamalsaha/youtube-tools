@@ -29,13 +29,11 @@ func channelsListByUsername(service *youtube.Service, parts []string, forUsernam
 	response, err := call.Do()
 	handleError(err, "")
 
-	fmt.Printf("%+v", response.Items)
-
-	//fmt.Println(fmt.Sprintf("This channel's ID is %s. Its title is '%s', "+
-	//	"and it has %d views.",
-	//	response.Items[0].Id,
-	//	response.Items[0].Snippet.Title,
-	//	response.Items[0].Statistics.ViewCount))
+	fmt.Println(fmt.Sprintf("This channel's ID is %s. Its title is '%s', "+
+		"and it has %d views.",
+		response.Items[0].Id,
+		response.Items[0].Snippet.Title,
+		response.Items[0].Statistics.ViewCount))
 }
 
 func main() {
@@ -46,5 +44,5 @@ func main() {
 	service, err := youtube.NewService(ctx, option.WithHTTPClient(client))
 	handleError(err, "Error creating YouTube client")
 
-	channelsListByUsername(service, strings.Split("snippet,contentDetails,statistics", ","), "appscodeinc")
+	channelsListByUsername(service, strings.Split("snippet,contentDetails,statistics", ","), "GoogleDevelopers")
 }
