@@ -23,6 +23,9 @@ func handleError(err error, message string) {
 	}
 }
 
+// https://developers.google.com/youtube/v3/guides/working_with_channel_ids
+// Use channel id
+// Youtube Studio > Customization > Basic Info
 func channelsListByUsername(service *youtube.Service, parts []string, forUsername string) {
 	call := service.Channels.List(parts)
 	call = call.Id(forUsername)
